@@ -9,9 +9,6 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist"]
-    },
-    "lint": {},
-    "test": {},
-    "test:e2e": {}
+    }
   }
 }
