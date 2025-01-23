@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { SvgIcon } from "@/components/svg-icon";
-import { Button, Tooltip } from "ant-design-vue";
+import { Button, Form, Input, Tooltip } from "ant-design-vue";
 import { useLogout } from "./useLogout";
 
 const logout = useLogout();
@@ -23,8 +23,29 @@ const onClick = async () => {};
         </Tooltip>
       </div>
     </header>
+
     <main class="page-main">
-      <Button @click="onClick">click</Button>
+      <Form name="searchForm" class="search-form-wrapper">
+        <Input placeholder="Add todo ..." autofocus />
+
+        <Tooltip title="新增" placement="right">
+          <Button type="primary" htmlType="submit">
+            <template #icon>
+              <SvgIcon type="plus"></SvgIcon>
+            </template>
+          </Button>
+        </Tooltip>
+
+        <div class="right-wrapper">
+          <Tooltip title="刷新" placement="left">
+            <Button type="text">
+              <template #icon>
+                <SvgIcon type="refresh-cw"></SvgIcon>
+              </template>
+            </Button>
+          </Tooltip>
+        </div>
+      </Form>
     </main>
   </div>
 </template>
@@ -34,6 +55,7 @@ const onClick = async () => {};
 
 .page-wrapper {
   min-height: 100%;
+  min-width: 400px;
   padding-top: @headerHeight;
   background-color: #f5f5f5;
   .page-header {
@@ -71,7 +93,22 @@ const onClick = async () => {};
   .page-main {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 36px;
+    padding: 18px 24px;
+    .search-form-wrapper {
+      width: 100%;
+      height: 48px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      :deep(.ant-input) {
+        width: 256px;
+      }
+      .right-wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
   }
 }
 </style>
