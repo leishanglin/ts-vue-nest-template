@@ -21,12 +21,12 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   // 个人使用的应用，不会开发“注册”功能
-  // @Public()
-  // @Post('register')
-  // async register(@Body() registerDto: RegisterDto) {
-  //   await this.authService.register(registerDto);
-  //   return new ResponseData(true, 'Registration complete', 201);
-  // }
+  @Public()
+  @Post('register')
+  async register(@Body() registerDto: RegisterDto) {
+    await this.authService.register(registerDto);
+    return new ResponseData(true, 'Registration complete', 201);
+  }
 
   @HttpCode(HttpStatus.OK)
   @Public()

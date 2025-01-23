@@ -4,6 +4,8 @@ import { Button, Tooltip } from "ant-design-vue";
 import { useLogout } from "./useLogout";
 
 const logout = useLogout();
+
+const onClick = async () => {};
 </script>
 
 <template>
@@ -21,7 +23,9 @@ const logout = useLogout();
         </Tooltip>
       </div>
     </header>
-    <main class="page-main">Hello</main>
+    <main class="page-main">
+      <Button @click="onClick">click</Button>
+    </main>
   </div>
 </template>
 

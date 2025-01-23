@@ -1,7 +1,7 @@
 import { useUserInfo } from "@/composables/useUserInfo";
 import HomeView from "@/views/home-view/HomeView.vue";
 import LoginView from "@/views/login-view/LoginView.vue";
-// import RegisterView from "@/views/register-view/RegisterView.vue";
+import RegisterView from "@/views/register-view/RegisterView.vue";
 import { isNil } from "lodash-es";
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -14,7 +14,7 @@ export const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: "/login", name: RouteName.LOGIN, component: LoginView },
-    // { path: "/register", name: "RegisterView", component: RegisterView },
+    { path: "/register", name: "RegisterView", component: RegisterView },
     { path: "/", redirect: { name: RouteName.HOME } },
     {
       path: "/home",

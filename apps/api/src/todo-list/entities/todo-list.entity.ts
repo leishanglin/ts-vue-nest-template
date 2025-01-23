@@ -7,22 +7,13 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'user', comment: '用户表' })
-export class User {
+@Entity({ name: 'todo_list', comment: '存储待办事项' })
+export class TodoListEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'name', comment: '账号', unique: true })
-  name: string;
-
-  @Column({ name: 'email', comment: '电子邮箱', unique: true })
-  email: string;
-
-  @Column({ name: 'age', comment: '年龄', nullable: true })
-  age: number;
-
-  @Column({ name: 'password', comment: '密码' })
-  password: string;
+  @Column({ name: 'title', comment: '标题', nullable: false })
+  title: string;
 
   @CreateDateColumn({ name: 'created_at', comment: '创建时间' })
   createdAt: Date;

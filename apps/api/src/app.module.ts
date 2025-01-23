@@ -7,6 +7,7 @@ import { CaptchaModule } from './captcha/captcha.module';
 import { RsaModule } from './rsa/rsa.module';
 import { AuthModule } from './auth/auth.module';
 import { ResponseModule } from './response/response.module';
+import { TodoListModule } from './todo-list/todo-list.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ResponseModule } from './response/response.module';
     UserModule,
     RsaModule,
     AuthModule,
+    TodoListModule,
   ],
   controllers: [],
   providers: [],

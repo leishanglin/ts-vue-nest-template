@@ -1,6 +1,6 @@
 import { get, post } from "./request";
 
-const prefix = "/auth";
+const authPrefix = "/auth";
 
 export interface RegisterParams {
   username: string;
@@ -21,14 +21,14 @@ export type LoginParams = Omit<RegisterParams, "email">;
 
 export default {
   login(params: LoginParams) {
-    return post<{ accessToken: string }>(`${prefix}/login`, params);
+    return post<{ accessToken: string }>(`${authPrefix}/login`, params);
   },
 
   register(params: RegisterParams) {
-    return post<boolean>(`${prefix}/register`, params);
+    return post<boolean>(`${authPrefix}/register`, params);
   },
 
   me() {
-    return get<UserItem>(`${prefix}/me`);
+    return get<UserItem>(`${authPrefix}/me`);
   },
 };

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { Card } from "ant-design-vue";
+import { Card, Flex } from "ant-design-vue";
 import { LoginForm } from "./login-form";
 import { useCaptcha } from "./useCaptcha";
 import { useLogin } from "./useLogin";
@@ -35,9 +35,9 @@ onMounted(() => {
       ></LoginForm>
 
       <!-- 个人应用，不会开放注册功能 -->
-      <!-- <Flex justify="flex-end">
+      <Flex justify="flex-end">
         <RouterLink to="/register">To Register</RouterLink>
-      </Flex> -->
+      </Flex>
     </Card>
   </div>
 </template>

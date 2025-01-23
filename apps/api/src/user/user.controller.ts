@@ -27,13 +27,13 @@ export class UserController {
   }
 
   @Get(':id')
-  getOne(@Param('id', ParseIntPipe) id: number) {
+  getOne(@Param('id', ParseIntPipe) id: string) {
     return this.userService.findOneById(id);
   }
 
   @Put(':id')
   update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseIntPipe) id: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
     return this.userService.update(id, updateUserDto);
