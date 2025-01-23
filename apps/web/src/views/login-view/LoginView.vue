@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { Card, Flex } from "ant-design-vue";
+import { Card } from "ant-design-vue";
 import { LoginForm } from "./login-form";
 import { useCaptcha } from "./useCaptcha";
 import { useLogin } from "./useLogin";
-import { router } from "@/router";
+import { RouteName, router } from "@/router";
 
 const captcha = useCaptcha();
 const login = useLogin();
@@ -13,7 +13,7 @@ const loginHandler = () => {
   login
     .submit(captcha.sessionId!)
     .then(() => {
-      router.replace("/home");
+      router.replace({ name: RouteName.HOME });
     })
     .catch(captcha.refresh);
 };
@@ -34,9 +34,10 @@ onMounted(() => {
         @refresh="captcha.refresh()"
       ></LoginForm>
 
-      <Flex justify="flex-end">
+      <!-- 个人应用，不会开放注册功能 -->
+      <!-- <Flex justify="flex-end">
         <RouterLink to="/register">To Register</RouterLink>
-      </Flex>
+      </Flex> -->
     </Card>
   </div>
 </template>
