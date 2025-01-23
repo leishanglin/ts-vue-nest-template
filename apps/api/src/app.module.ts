@@ -1,13 +1,25 @@
 import { Module } from '@nestjs/common';
-
-import { LinksModule } from './links/links.module';
-
-import { AppService } from './app.service';
-import { AppController } from './app.controller';
+import { importConfigModule } from './config/importConfigModule';
+import { UserModule } from './user/user.module';
+import { importTypeOrmModule } from './typeorm/importTypeOrmModule';
+import { importCacheModule } from './cache/importCacheModule';
+import { CaptchaModule } from './captcha/captcha.module';
+import { RsaModule } from './rsa/rsa.module';
+import { AuthModule } from './auth/auth.module';
+import { ResponseModule } from './response/response.module';
 
 @Module({
-  imports: [LinksModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    importConfigModule(),
+    importTypeOrmModule(),
+    importCacheModule(),
+    ResponseModule,
+    CaptchaModule,
+    UserModule,
+    RsaModule,
+    AuthModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

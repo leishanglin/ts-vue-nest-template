@@ -19,6 +19,7 @@ coverage
 test-results/
 playwright/.cache/
 playwright-report/
+__snapshots__
 
 
 # Turbo
