@@ -10,8 +10,13 @@ export const useUserInfo = () => {
     return userInfo.value;
   };
 
+  const clear = () => {
+    userInfo.value = null;
+  };
+
   return {
     getUserInfo,
     userInfo,
+    clear,
   };
 };

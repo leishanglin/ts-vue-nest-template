@@ -1,4 +1,4 @@
-import { useUserInfo } from "@/composables";
+import { useUserInfo } from "@/composables/useUserInfo";
 import HomeView from "@/views/home-view/HomeView.vue";
 import LoginView from "@/views/login-view/LoginView.vue";
 // import RegisterView from "@/views/register-view/RegisterView.vue";
