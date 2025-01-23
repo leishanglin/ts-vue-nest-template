@@ -6,6 +6,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { omit } from 'lodash';
 
+type NonPasswordUser = Omit<User, 'password'>
+
 @Injectable()
 export class UserService {
   constructor(
@@ -18,12 +20,12 @@ export class UserService {
     return this.userRepository.save(newUser);
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<NonPasswordUser[]> {
     const users = await this.userRepository.find();
     return users.map((user) => omit(user, ['password']));
   }
 
-  async findOneById(id: number): Promise<User> {
+  async findOneById(id: number): Promise<NonPasswordUser> {
     const item = await this.userRepository.findOneBy({ id });
     return omit(item, ['password']);
   }
@@ -32,8 +34,7 @@ export class UserService {
     const item = await this.userRepository.findOneBy({ id });
     return item.password;
   }
-
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<NonPasswordUser> {
     await this.userRepository.update(id, updateUserDto);
     return this.findOneById(id);
   }
