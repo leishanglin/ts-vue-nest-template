@@ -11,8 +11,10 @@ const logout = useLogout();
 const list = useLocalStorage<TodoListItem[]>("todoList", []);
 const title = ref("");
 const loading = ref(false);
+const removeStashId = ref<string | null>(null);
 
 const search = async () => {
+  removeStashId.value = null;
   loading.value = true;
   list.value = (await todoListApi.search()) || [];
   loading.value = false;
@@ -26,12 +28,19 @@ const create = async () => {
   title.value = "";
 };
 const remove = async (id: string, index: number) => {
+  if (removeStashId.value === null || removeStashId.value !== id) {
+    removeStashId.value = id;
+    return;
+  }
+
   const success = await todoListApi.remove(id);
   if (!success) {
     return;
   }
   list.value.splice(index, 1);
+  removeStashId.value = null;
 };
+
 onMounted(() => {
   if (list.value.length === 0) {
     search();
@@ -81,13 +90,21 @@ onMounted(() => {
       <ul class="list-wrapper">
         <Skeleton active v-if="loading"></Skeleton>
         <template v-else>
-          <li class="list-item" v-for="(item, index) in list">
-            <Button type="text" @click="remove(item.id, index)">
+          <li
+            class="list-item"
+            v-for="(item, index) in list"
+            :class="{ removing: item.id === removeStashId }"
+          >
+            <Button
+              type="text"
+              @click="remove(item.id, index)"
+              :danger="item.id === removeStashId"
+            >
               <template #icon>
                 <SvgIcon type="x"></SvgIcon>
               </template>
             </Button>
-            <span class="title">{{ item.title }}</span>
+            <span class="title" :title="item.title">{{ item.title }}</span>
             <span class="date">{{ Dayjs(item.createdAt).fromNow() }}</span>
           </li>
         </template>
@@ -173,9 +190,18 @@ onMounted(() => {
         }
         .title {
           flex: 1;
+          width: 0;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
         .date {
           color: rgba(5, 5, 5, 0.4);
+        }
+        &.removing {
+          .title {
+            color: tomato;
+          }
         }
       }
     }

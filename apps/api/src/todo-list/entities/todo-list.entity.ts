@@ -12,7 +12,7 @@ export class TodoListEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'title', comment: '标题', nullable: false })
+  @Column({ name: 'title', comment: '标题', nullable: false, type: 'text' })
   title: string;
 
   @CreateDateColumn({ name: 'created_at', comment: '创建时间' })
