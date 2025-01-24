@@ -11,7 +11,10 @@ export class TodoListService {
   ) {}
 
   findAll(): Promise<TodoListEntity[]> {
-    return this.todoListRepository.find({ where: { deletedAt: null } });
+    return this.todoListRepository.find({
+      where: { deletedAt: null },
+      order: { createdAt: 'DESC' },
+    });
   }
 
   addOne(title: string) {

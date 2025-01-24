@@ -19,7 +19,7 @@ export const useLogin = () => {
     });
     loadingToggle(false);
     if (res) {
-      sessionStorage.accessToken = res.accessToken;
+      localStorage.accessToken = res.accessToken;
     } else {
       throw new Error("Login Failed");
     }

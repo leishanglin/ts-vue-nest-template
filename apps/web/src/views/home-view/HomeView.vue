@@ -1,11 +1,42 @@
 <script setup lang="ts">
 import { SvgIcon } from "@/components/svg-icon";
-import { Button, Form, Input, Tooltip } from "ant-design-vue";
+import { Button, Form, Input, Skeleton, Tooltip } from "ant-design-vue";
 import { useLogout } from "./useLogout";
+import { onMounted, ref } from "vue";
+import { todoListApi, TodoListItem } from "@/api/todo-list.api";
+import Dayjs from "dayjs";
+import { useLocalStorage } from "@vueuse/core";
 
 const logout = useLogout();
+const list = useLocalStorage<TodoListItem[]>("todoList", []);
+const title = ref("");
+const loading = ref(false);
 
-const onClick = async () => {};
+const search = async () => {
+  loading.value = true;
+  list.value = (await todoListApi.search()) || [];
+  loading.value = false;
+};
+const create = async () => {
+  const newItem = await todoListApi.create(title.value);
+  if (!newItem) {
+    return;
+  }
+  list.value.unshift(newItem);
+  title.value = "";
+};
+const remove = async (id: string, index: number) => {
+  const success = await todoListApi.remove(id);
+  if (!success) {
+    return;
+  }
+  list.value.splice(index, 1);
+};
+onMounted(() => {
+  if (list.value.length === 0) {
+    search();
+  }
+});
 </script>
 
 <template>
@@ -25,8 +56,8 @@ const onClick = async () => {};
     </header>
 
     <main class="page-main">
-      <Form name="searchForm" class="search-form-wrapper">
-        <Input placeholder="Add todo ..." autofocus />
+      <Form name="searchForm" class="search-form-wrapper" @submit="create">
+        <Input placeholder="Add todo ..." autofocus v-model:value="title" />
 
         <Tooltip title="新增" placement="right">
           <Button type="primary" htmlType="submit">
@@ -38,7 +69,7 @@ const onClick = async () => {};
 
         <div class="right-wrapper">
           <Tooltip title="刷新" placement="left">
-            <Button type="text">
+            <Button type="text" @click="search">
               <template #icon>
                 <SvgIcon type="refresh-cw"></SvgIcon>
               </template>
@@ -46,6 +77,21 @@ const onClick = async () => {};
           </Tooltip>
         </div>
       </Form>
+
+      <ul class="list-wrapper">
+        <Skeleton active v-if="loading"></Skeleton>
+        <template v-else>
+          <li class="list-item" v-for="(item, index) in list">
+            <Button type="text" @click="remove(item.id, index)">
+              <template #icon>
+                <SvgIcon type="x"></SvgIcon>
+              </template>
+            </Button>
+            <span class="title">{{ item.title }}</span>
+            <span class="date">{{ Dayjs(item.createdAt).fromNow() }}</span>
+          </li>
+        </template>
+      </ul>
     </main>
   </div>
 </template>
@@ -94,6 +140,9 @@ const onClick = async () => {};
     max-width: 1000px;
     margin: 0 auto;
     padding: 18px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     .search-form-wrapper {
       width: 100%;
       height: 48px;
@@ -107,6 +156,27 @@ const onClick = async () => {};
         flex: 1;
         display: flex;
         justify-content: flex-end;
+      }
+    }
+    .list-wrapper {
+      list-style: none;
+      padding-left: 0;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.65);
+      .list-item {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        height: 36px;
+        &:hover {
+          color: rgba(0, 0, 0, 1);
+        }
+        .title {
+          flex: 1;
+        }
+        .date {
+          color: rgba(5, 5, 5, 0.4);
+        }
       }
     }
   }

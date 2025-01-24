@@ -14,9 +14,8 @@ const request = axios.create({
 });
 
 request.interceptors.request.use((request) => {
-  const { accessToken } = sessionStorage;
-  if (accessToken) {
-    request.headers.Authorization = `Bearer ${accessToken}`;
+  if (localStorage.accessToken) {
+    request.headers.Authorization = `Bearer ${localStorage.accessToken}`;
   }
 
   return request;
@@ -69,7 +68,7 @@ request.interceptors.response.use(
 
     switch (status) {
       case HttpStatusCode.Unauthorized:
-        delete sessionStorage.accessToken;
+        delete localStorage.accessToken;
         router.replace("/login");
         tip();
         break;

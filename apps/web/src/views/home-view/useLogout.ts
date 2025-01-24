@@ -4,7 +4,7 @@ import { toReactive } from "@vueuse/core";
 
 export const useLogout = () => {
   const logout = () => {
-    delete sessionStorage.accessToken;
+    delete localStorage.accessToken;
     useUserInfo().clear();
     router.push({ name: RouteName.LOGIN });
   };

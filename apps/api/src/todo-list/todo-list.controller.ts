@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { TodoListService } from './todo-list.service';
+import { CreateTodoListDto } from './dto/create-todo-list.dto';
 
 @Controller('todo-list')
 export class TodoListController {
@@ -11,8 +12,8 @@ export class TodoListController {
   }
 
   @Post()
-  addOne(@Body('title') title: string) {
-    return this.todoListService.addOne(title);
+  addOne(@Body() createTodolistDto: CreateTodoListDto) {
+    return this.todoListService.addOne(createTodolistDto.title);
   }
 
   @Delete(':id')
