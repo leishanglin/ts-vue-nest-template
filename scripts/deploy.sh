@@ -22,6 +22,7 @@ files_to_upload=(
   "dist"
   "public"
 	"pnpm-lock.yaml"
+  ".env.production"
   ".env.production.local"
   "generateRSA.sh"
   "package.json"
