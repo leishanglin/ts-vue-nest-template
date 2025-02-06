@@ -2,7 +2,7 @@ import { useUserInfo } from "@/composables/useUserInfo";
 import HomeView from "@/views/home-view/HomeView.vue";
 import LoginView from "@/views/login-view/LoginView.vue";
 import RegisterView from "@/views/register-view/RegisterView.vue";
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 
 export const enum RouteName {
   LOGIN = "LOGIN",
@@ -10,7 +10,7 @@ export const enum RouteName {
 }
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     { path: "/login", name: RouteName.LOGIN, component: LoginView },
     { path: "/register", name: "RegisterView", component: RegisterView },
