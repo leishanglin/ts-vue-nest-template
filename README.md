@@ -30,7 +30,7 @@ chmod +x ./scrips/deploy.sh
 ./deploy.sh
 
 # 然后登录服务器进行以下操作：
-pnpm install --frozen-lockfile --prod
+pnpm install --prod
 chmod +x ./generateRSA.sh
 ./generateRSA.sh # MaxOS or Linux
 pm2 start ./ecosystem.config.js
