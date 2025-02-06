@@ -8,12 +8,14 @@ import { RsaModule } from './rsa/rsa.module';
 import { AuthModule } from './auth/auth.module';
 import { ResponseModule } from './response/response.module';
 import { TodoListModule } from './todo-list/todo-list.module';
+import { importServeStaticModule } from './serve-static/importServeStaticModule';
 
 @Module({
   imports: [
     importConfigModule(),
     importTypeOrmModule(),
     importCacheModule(),
+    importServeStaticModule(),
     ResponseModule,
     CaptchaModule,
     UserModule,

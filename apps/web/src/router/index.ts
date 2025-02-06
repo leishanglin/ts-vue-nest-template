@@ -2,7 +2,6 @@ import { useUserInfo } from "@/composables/useUserInfo";
 import HomeView from "@/views/home-view/HomeView.vue";
 import LoginView from "@/views/login-view/LoginView.vue";
 import RegisterView from "@/views/register-view/RegisterView.vue";
-import { isNil } from "lodash-es";
 import { createRouter, createWebHistory } from "vue-router";
 
 export const enum RouteName {
