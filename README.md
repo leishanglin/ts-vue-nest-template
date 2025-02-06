@@ -20,7 +20,6 @@ pnpm dev
 2. deploy
 
 update name in `./apps/api/ecosystem.config.js`;
-update `targetDir` and `host` in `./scripts/deploy.sh`;
 
 and then: 
 
@@ -32,6 +31,8 @@ chmod +x ./scrips/deploy.sh
 
 # 然后登录服务器进行以下操作：
 pnpm install --frozen-lockfile --prod
+chmod +x ./generateRSA.sh
+./generateRSA.sh # MaxOS or Linux
 pm2 start ./ecosystem.config.js
 pm2 save
 ```
