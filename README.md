@@ -4,11 +4,34 @@ A Vue + NestJS project template with a built-in authentication module（一个 V
 
 ## Get started
 
+1. develop
+
 ```sh
 pnpm i
 chmod +x ./apps/api/generateRSA.sh
 ./apps/api/generateRSA.sh # MaxOS or Linux
+
 # Add .env.development.local at ./apps/api/
 # Add MYSQL ENVIORMENT VARIABLES in .env.development.local
+
 pnpm dev
+```
+
+2. deploy
+
+update name in `./apps/api/ecosystem.config.js`;
+update `targetDir` and `host` in `./scripts/deploy.sh`;
+
+and then: 
+
+```sh
+pnpm build
+
+chmod +x ./scrips/deploy.sh
+./deploy.sh
+
+# 然后登录服务器进行以下操作：
+pnpm install --frozen-lockfile --prod
+pm2 start ./ecosystem.config.js
+pm2 save
 ```

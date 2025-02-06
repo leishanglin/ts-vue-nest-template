@@ -17,6 +17,7 @@ export const importTypeOrmModule = () => {
         database: configService.get<string>('database.database'),
         synchronize: configService.get<boolean>('database.synchronize'),
         entities: [User, TodoListEntity],
+        migrations: ['src/typeorm/migrations/*.ts'],
       };
     },
   });

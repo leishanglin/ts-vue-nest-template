@@ -35,9 +35,9 @@ onMounted(() => {
       ></LoginForm>
 
       <!-- 个人应用，不会开放注册功能 -->
-      <!-- <Flex justify="flex-end">
+      <Flex justify="flex-end">
         <RouterLink to="/register">To Register</RouterLink>
-      </Flex> -->
+      </Flex>
     </Card>
   </div>
 </template>
