@@ -13,6 +13,18 @@ export default defineConfig(({ mode }) => {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
       },
     },
+    build: {
+      outDir: fileURLToPath(new URL("../api/public", import.meta.url)),
+      emptyOutDir: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vue: ["vue", "vue-router"],
+            "ant-design-vue": ["ant-design-vue"],
+          },
+        },
+      },
+    },
     server: {
       proxy: {
         [env.VITE_API_PREFIX]: {
